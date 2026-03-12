@@ -1,0 +1,153 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+venv.bak
+env.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+*.sublime-project
+*.sublime-workspace
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+fitness_ai.db
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Uploads & Temp Files
+uploads/
+temp/
+tmp/
+*.tmp
+.cache/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Configuration
+config_local.ini
+secrets.json
+.credentials
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.hypothesis/
+
+# Build
+*.tar.gz
+*.zip
+dist/
+build/
+
+# OS
+Thumbs.db
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.TemporaryItems
+*.bak
+*.BAK
+
+# Node (if using npm/yarn)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Backups
+backups/
+*_backup.*
+*.backup
+*.bkp
+
+# Mobile App
+.expo/
+.expo-shared/
+
+# OS Files
+.env.*.local
+.env.production
+.env.development
+
+# Static Files (generated)
+static/cache/
+static/min/
+
+# CSV exports
+exports/
+*.csv
+
+# Miscellaneous
+.vscode-settings
+*.sublime-settings-user
+.rubocop-http*
+.stylelintcache
+
+# Local configuration
+local_config.py
+settings_local.py
+
+# Testing artifacts
+test_*.db
+test_logs/
+
+# IDE project files
+*.iml
+.gradle/
+local.properties
+
+# CI/CD
+.gitlab-ci.yml.local
+.github/workflows/local/
+
+# Don't ignore these
+!.gitkeep
+!.github/
+!requirements.txt

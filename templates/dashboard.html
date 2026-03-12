@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}لوحة التحكم - FitLife AI{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <div class="dashboard-header">
+        <div class="header-content">
+            <h1>مرحباً بك في لوحة التحكم</h1>
+            <p>متابع اللياقة الذكي مع الذكاء الاصطناعي</p>
+        </div>
+        <div class="header-date">
+            <span id="current-date"></span>
+        </div>
+    </div>
+    
+    <!-- Quick Stats -->
+    <section class="quick-stats">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="stat-content">
+                <h3>التمارين هذا الأسبوع</h3>
+                <p class="stat-value" id="weekly-exercises">0</p>
+                <small>تمارين</small>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <i class="fas fa-fire"></i>
+            </div>
+            <div class="stat-content">
+                <h3>السعرات المحروقة</h3>
+                <p class="stat-value" id="total-calories">0</p>
+                <small>سعرة حرارية</small>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="stat-content">
+                <h3>معدل النبض</h3>
+                <p class="stat-value" id="heart-rate">--</p>
+                <small>نبضة/دقيقة</small>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <i class="fas fa-percent"></i>
+            </div>
+            <div class="stat-content">
+                <h3>درجة الصحة</h3>
+                <p class="stat-value" id="health-score">--</p>
+                <small>/ 100</small>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+        <!-- Add Exercise Section -->
+        <section class="card add-exercise-card">
+            <div class="card-header">
+                <h2><i class="fas fa-plus"></i> إضافة تمرين</h2>
+            </div>
+            <div class="card-body">
+                <form id="exercise-form" class="form-grid">
+                    <div class="form-group">
+                        <label for="exercise-name">اسم التمرين</label>
+                        <input type="text" id="exercise-name" placeholder="مثال: الجري الصباحي" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercise-type">نوع التمرين</label>
+                        <select id="exercise-type" required>
+                            <option value="">اختر النوع</option>
+                            <option value="جري">جري</option>
+                            <option value="مشي">مشي</option>
+                            <option value="سباحة">سباحة</option>
+                            <option value="رفع أثقال">رفع أثقال</option>
+                            <option value="اليوجا">اليوجا</option>
+                            <option value="دراجة">دراجة</option>
+                            <option value="تمارين منزلية">تمارين منزلية</option>
+                            <option value="أخرى">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercise-duration">المدة (دقيقة)</label>
+                        <input type="number" id="exercise-duration" placeholder="30" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercise-intensity">الشدة (1-10)</label>
+                        <input type="range" id="exercise-intensity" min="1" max="10" value="5">
+                        <span class="intensity-value">5</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercise-calories">السعرات المحروقة</label>
+                        <input type="number" id="exercise-calories" placeholder="250" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercise-notes">ملاحظات</label>
+                        <textarea id="exercise-notes" placeholder="أي ملاحظات إضافية..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="grid-column: 1/-1;">
+                        <i class="fas fa-check"></i> إضافة التمرين
+                    </button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Health Data Section -->
+        <section class="card health-data-card">
+            <div class="card-header">
+                <h2><i class="fas fa-heartbeat"></i> البيانات الصحية</h2>
+            </div>
+            <div class="card-body">
+                <form id="health-form" class="form-grid">
+                    <div class="form-group">
+                        <label for="health-weight">الوزن (كغ)</label>
+                        <input type="number" id="health-weight" placeholder="70" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="health-heart-rate">معدل النبض</label>
+                        <input type="number" id="health-heart-rate" placeholder="75" min="30" max="200">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="health-bp">ضغط الدم</label>
+                        <input type="text" id="health-bp" placeholder="120/80">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="health-body-fat">نسبة الدهون %</label>
+                        <input type="number" id="health-body-fat" placeholder="20" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="health-sleep">ساعات النوم</label>
+                        <input type="number" id="health-sleep" placeholder="7" step="0.5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="health-stress">مستوى الإجهاد (1-10)</label>
+                        <input type="range" id="health-stress" min="1" max="10" value="5">
+                        <span class="stress-value">5</span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="grid-column: 1/-1;">
+                        <i class="fas fa-save"></i> حفظ البيانات الصحية
+                    </button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- AI Recommendations -->
+        <section class="card ai-recommendations-card">
+            <div class="card-header">
+                <h2><i class="fas fa-robot"></i> التوصيات الذكية</h2>
+            </div>
+            <div class="card-body">
+                <div id="recommendations-list" class="recommendations-list">
+                    <p class="empty-message">جاري تحميل التوصيات...</p>
+                </div>
+                <button id="request-analysis" class="btn btn-secondary" style="width: 100%; margin-top: 15px;">
+                    <i class="fas fa-brain"></i> طلب تحليل ذكي شامل
+                </button>
+            </div>
+        </section>
+        
+        <!-- Recent Exercises -->
+        <section class="card recent-exercises-card">
+            <div class="card-header">
+                <h2><i class="fas fa-list"></i> التمارين الأخيرة</h2>
+            </div>
+            <div class="card-body">
+                <div id="recent-exercises" class="exercises-list">
+                    <p class="empty-message">لا توجد تمارين مسجلة بعد</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Health Chart -->
+        <section class="card chart-card">
+            <div class="card-header">
+                <h2><i class="fas fa-chart-line"></i> الرسم البياني</h2>
+            </div>
+            <div class="card-body">
+                <canvas id="health-chart"></canvas>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Schedule Exercise Modal -->
+<div id="schedule-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>جدولة تمرين</h2>
+            <button class="close-btn">&times;</button>
+        </div>
+        <form id="schedule-form">
+            <div class="form-group">
+                <label for="schedule-exercise">اسم التمرين</label>
+                <input type="text" id="schedule-exercise" required>
+            </div>
+            <div class="form-group">
+                <label for="schedule-date">التاريخ والوقت</label>
+                <input type="datetime-local" id="schedule-date" required>
+            </div>
+            <button type="submit" class="btn btn-primary">جدولة</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

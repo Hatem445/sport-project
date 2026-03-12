@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}تطبيق اللياقة والصحة الذكي{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+    <!-- Navigation -->
+    {% if session.get('user_id') %}
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-heartbeat"></i>
+                <span>FitLife AI</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="{{ url_for('index') }}" class="nav-link">
+                    <i class="fas fa-home"></i> الرئيسية
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-dumbbell"></i> التمارين
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-heartbeat"></i> الصحة
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-robot"></i> التحليلات
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user"></i> ملفي
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <button id="notif-btn" class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-badge">0</span>
+                </button>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> خروج
+                </button>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 FitLife AI - جميع الحقوق محفوظة</p>
+            <div class="footer-links">
+                <a href="#">الخصوصية</a>
+                <a href="#">الشروط</a>
+                <a href="#">التواصل</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

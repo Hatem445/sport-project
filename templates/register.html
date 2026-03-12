@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}إنشاء حساب - FitLife AI{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-logo">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <h1>FitLife AI</h1>
+            <p>تطبيق اللياقة الذكي الشامل</p>
+        </div>
+        
+        <form id="register-form" class="auth-form">
+            <div class="form-group">
+                <label for="username">اسم المستخدم</label>
+                <input type="text" id="username" placeholder="اختر اسم المستخدم" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">رقم الهاتف</label>
+                <input type="tel" id="phone" placeholder="+966501234567">
+                <small>لتلقي الإشعارات عن التمارين والصحة</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">كلمة السر</label>
+                <input type="password" id="password" placeholder="أدخل كلمة سر قوية" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password-confirm">تأكيد كلمة السر</label>
+                <input type="password" id="password-confirm" placeholder="أعد إدخال كلمة السر" required>
+            </div>
+            
+            <div class="form-section-title">بيانات صحية أساسية</div>
+            
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label for="age">العمر</label>
+                    <input type="number" id="age" min="10" max="120">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">الجنس</label>
+                    <select id="gender">
+                        <option value="">اختر</option>
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثى</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="height">الطول (سم)</label>
+                    <input type="number" id="height" placeholder="175" min="100" max="250">
+                </div>
+                
+                <div class="form-group">
+                    <label for="weight">الوزن (كغ)</label>
+                    <input type="number" id="weight" placeholder="70" step="0.1" min="20">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-large">
+                <i class="fas fa-user-plus"></i> إنشاء الحساب
+            </button>
+        </form>
+        
+        <div class="auth-footer">
+            <p>لديك حساب بالفعل؟ <a href="{{ url_for('login') }}">سجل الدخول هنا</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // التحقق من تطابق كلمات السر
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('password-confirm').value;
+    
+    if (password !== passwordConfirm) {
+        showToast('كلمات السر غير متطابقة', 'error');
+        return;
+    }
+    
+    const formData = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        password: password,
+        age: document.getElementById('age').value || null,
+        gender: document.getElementById('gender').value,
+        height: document.getElementById('height').value || null,
+        weight: document.getElementById('weight').value || null
+    };
+    
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            showToast('✅ تم إنشاء الحساب بنجاح!', 'success');
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+        } else {
+            showToast('❌ ' + (data.error || 'خطأ في التسجيل'), 'error');
+        }
+    } catch (error) {
+        showToast('❌ حدث خطأ: ' + error.message, 'error');
+    }
+});
+
+function showToast(message, type) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast show ' + type;
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
+}
+</script>
+{% endblock %}
